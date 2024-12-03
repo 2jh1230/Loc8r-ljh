@@ -1,0 +1,38 @@
+extends layout 
+include _includes/sharedHTMLfunctions
+
+block content
+  .row.banner
+    .col-12 
+      h1= pageHeader.title
+      small &nbsp;#{pageHeader.strapLine}
+
+  .row 
+    .col-12.col-md-8 
+      if message
+        .error = message
+        app-home-list
+      if locations && locations.length > 0
+        each location in locations
+          .card 
+            .card-block 
+              h4
+                a(href=`/location/${location._id}`)= location.name
+                +outputRating(location.rating) 
+                span.badge.badge-pill.badge-default.float-right= location.distance
+              p.address= location.address
+              .facilities 
+                each facility in location.facilities
+                  span.badge.badge-warning= facility 
+      else
+        p No locations found.
+    
+    .col-12.col-md-4 
+      p.lead= sidebar || 'Default sidebar content'
+
+block scripts 
+  script(src='/buide/runtime.9c02b02e537cce9e.js')
+  script(src='/build/polyfills.1297ff3ff0424c8c.js')
+  script(src='/build/main.1c529021c8b24ece.js')
+  
+  
