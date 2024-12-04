@@ -5,7 +5,7 @@ const apiOptions = {
   server: 'http://localhost:3000'
 }
 if(process.env.REACT_APP_NODE_ENV === 'production') {
-  apiOptions.server = 'https://loc8r-leejeonghwan.onrender.com'
+  apiOptions.server = 'https://loc8r-ljh.onrender.com'
 }
 
 const requestOptions ={

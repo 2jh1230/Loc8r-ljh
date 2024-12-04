@@ -21,6 +21,12 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
+app.use('/api', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  next();
+});
+
 // view engine setup
 app.use(logger('dev'));
 app.use(express.json());
@@ -32,20 +38,12 @@ app.use(passport.initialize());
 app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'pug');
 
-
-// CORS 설정
-app.use('/api', (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', "*");
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  next();
-});
-
 // API 라우터만 설정 (프론트엔드 라우터 비활성화)
 app.use('/api', apiRouter);
 
 // error handler
 app.use((err, req, res, next) => {
-  if (err.name = 'UnauthorizedError') {
+  if (err.name === 'UnauthorizedError') {
     res
       .status(401)
       .json({"2020810057 이정환 message": err.name + ": " + err.message});
